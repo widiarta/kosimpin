@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>Koperasi Telaga Mandiri - Perum Telaga Mas Bekasi Utara</title>
+<title><?php echo $this->config->item('nama_koperasi'); ?> - <?php echo $this->config->item('alamat'); ?></title>
 
 <style type="text/css">
 
@@ -44,7 +44,7 @@ code {
 </head>
 <body>
 
-<h1>Koperasi Telagamandiri</h1>
+<h1><?php echo $this->config->item('nama_koperasi'); ?></h1>
 
 <form name="form1" method="post" action="<?php echo base_url();?>/index.php/main/login">
   <table width="300" border="0">

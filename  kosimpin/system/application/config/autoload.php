@@ -79,7 +79,7 @@ $autoload['plugin'] = array('captcha', 'js_calendar');
 |
 */
 
-$autoload['config'] = array();
+$autoload['config'] = array('koperasi');
 
 
 /*

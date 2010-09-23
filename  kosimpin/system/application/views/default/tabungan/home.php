@@ -46,8 +46,7 @@ code {
 
 <h1><?php echo $this->config->item('nama_koperasi'); ?></h1>
 
-Welcome.
+Home >> Tabungan
 <p>&nbsp;</p>
-<?php include("menu.php"); ?>
 </body>
 </html>

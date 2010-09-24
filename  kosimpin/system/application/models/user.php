@@ -1,42 +1,39 @@
 <?php
 
-class User extends Model {
+class User extends Base_Model {
 
-	function __construct()
-	{
-		parent::Model();	
-	}
+    function __construct()
+    {
+        parent::Model();
+        parent::__construct();
+        $this->init("pinjaman","id");
+    }
 	
-	function is_exists($user,$password)
+    function is_exists($user,$password)
+    {
+	$this->db->select("user_name,password")
+	         ->from("user")
+		 ->where("user_name","$user")
+		 ->where("password",md5($password));
+	$rec = $this->db->get();
+	if($rec->num_rows()>0)
 	{
-		$this->db->select("user_name,password")
-		         ->from("user")
-				 ->where("user_name","$user")
-				 ->where("password",md5($password));
-		$rec = $this->db->get();
-		if($rec->num_rows()>0)
-		{
-			return TRUE;
-		}
+            return TRUE;
+	}
 		
-		return FALSE;
-	}
+	return FALSE;
+    }
 	
-	function add($user,$password,$email="",$anggota=null)
-	{
-		$data = array("user_name"=>$user,
-		              "password"=>md5($password),
-					  "email"=>$email
-					  );
+    function add($user,$password,$email="",$anggota=null)
+    {
+            $data = array("user_name"=>$user,
+                          "password"=>md5($password),
+			  "email"=>$email
+                	  );
 					  
-		$this->db->insert("user",$data);
-	}
+            $this->save($data);
+    }
 	
-	function del($id)
-	{
-		$this->db->where("id",$id);
-		$this->db->delete("user");
-	}
 }
 
 /* End of file user.php */

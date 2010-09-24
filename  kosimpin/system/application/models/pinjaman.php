@@ -1,43 +1,44 @@
 <?php
 
-class Pinjaman extends Model {
+class Pinjaman extends Base_Model {
 
-	function __construct()
-	{
-		parent::Model();	
-	}
+    function __construct()
+    {
+        parent::__construct("pinjaman","id");
+    }
 	
-	function get_saldo($kode_anggota)
-	{
-		return 100000;
-	}
+    function get_saldo($kode_anggota)
+    {
+        return 100000;
+    }
 	
-	function get_record($tgl_awal,$tgl_sampai)
+    function get_record($tgl_awal,$tgl_sampai)
+    {
+        $this->db->select("*")
+		 ->from("pinjaman")
+		 ->where("tgl_transaksi","$tgl_awal",">=")
+		 ->where("tgl_transaksi","$tgl_sampai","<=");
+
+        $rec = $this->db->get();
+	if($rec->num_rows()>0)
 	{
-		$this->db->select("*")
-				 ->from("pinjaman")
-				 ->where("tgl_transaksi","$tgl_awal",">=")
-				 ->where("tgl_transaksi","$tgl_sampai","<=");
-		$rec = $this->db->get();
-		if($rec->num_rows()>0)
-		{
-			return $rec->result();
-		}
+            return $rec->result();
+	}
 		
-		return FALSE;
-	}
+	return FALSE;
+    }
 	
-	function bayar_pinjaman()
-	{
-	}
+    function bayar_pinjaman()
+    {
+    }
 	
-	function batalkan_pinjaman()
-	{
-	}
+    function batalkan_pinjaman()
+    {
+    }
 	
-	function get_detail_pembayaran()
-	{
-	}
+    function get_detail_pembayaran()
+    {
+    }
 }
 
 /* End of file pinjaman.php */

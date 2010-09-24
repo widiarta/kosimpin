@@ -7,16 +7,25 @@ class Base_model extends Model {
     var $table_name;
     var $field_id;
 
-    function __construct($table_name,$id_field)
+    function __construct()
     {
         parent::Model();
-        $this->table_name = $table_name;
-        $this->field_id = $id_field;
-
     }
 
+    function init($table_name,$id_field)
+    {
+        $this->table_name = $table_name;
+        $this->field_id = $id_field;
+    }
+
+    /**
+     *
+     * @param array $data
+     */
     function save($data)
     {
+        $data["tgl_input"] = date("Y-m-d H:i:s");
+        $data["ip_input"] = $_SERVER["HTTP_HOST"];
         $this->db->insert($this->table_name,$data);
     }
 

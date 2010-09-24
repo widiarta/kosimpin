@@ -4,7 +4,8 @@ class Pinjaman extends Base_Model {
 
     function __construct()
     {
-        parent::__construct("pinjaman","id");
+        parent::__construct();
+        $this->init("pinjaman","id");
     }
 	
     function get_saldo($kode_anggota)

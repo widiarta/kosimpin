@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Sep 23, 2010 at 10:57 AM
--- Server version: 5.1.30
--- PHP Version: 5.2.8
+-- Waktu pembuatan: 24. September 2010 jam 14:02
+-- Versi Server: 5.1.30
+-- Versi PHP: 5.2.8
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
@@ -22,7 +22,7 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `anggota`
+-- Struktur dari tabel `anggota`
 --
 
 CREATE TABLE IF NOT EXISTS `anggota` (
@@ -33,20 +33,22 @@ CREATE TABLE IF NOT EXISTS `anggota` (
   `alamat` varchar(100) NOT NULL,
   `telpon` varchar(35) NOT NULL,
   `email` varchar(50) NOT NULL,
+  `tgl_input` datetime NOT NULL,
+  `ip_input` varchar(30) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `nomor_anggota` (`nomor_anggota`),
   KEY `nama` (`nama`,`tglmasuk`,`alamat`,`telpon`,`email`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
--- Dumping data for table `anggota`
+-- Dumping data untuk tabel `anggota`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pembayaran_pinjaman`
+-- Struktur dari tabel `pembayaran_pinjaman`
 --
 
 CREATE TABLE IF NOT EXISTS `pembayaran_pinjaman` (
@@ -62,14 +64,36 @@ CREATE TABLE IF NOT EXISTS `pembayaran_pinjaman` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
--- Dumping data for table `pembayaran_pinjaman`
+-- Dumping data untuk tabel `pembayaran_pinjaman`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pinjaman`
+-- Struktur dari tabel `pengeluaran`
+--
+
+CREATE TABLE IF NOT EXISTS `pengeluaran` (
+  `id` int(11) NOT NULL,
+  `tgl_transaksi` date NOT NULL,
+  `jumlah` decimal(10,0) NOT NULL,
+  `keterangan` varchar(200) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `ip_input` varchar(30) NOT NULL DEFAULT '',
+  `tgl_input` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `pengeluaran`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `pinjaman`
 --
 
 CREATE TABLE IF NOT EXISTS `pinjaman` (
@@ -85,14 +109,14 @@ CREATE TABLE IF NOT EXISTS `pinjaman` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `pinjaman`
+-- Dumping data untuk tabel `pinjaman`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tabungan`
+-- Struktur dari tabel `tabungan`
 --
 
 CREATE TABLE IF NOT EXISTS `tabungan` (
@@ -111,14 +135,14 @@ CREATE TABLE IF NOT EXISTS `tabungan` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
--- Dumping data for table `tabungan`
+-- Dumping data untuk tabel `tabungan`
 --
 
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user`
+-- Struktur dari tabel `user`
 --
 
 CREATE TABLE IF NOT EXISTS `user` (
@@ -127,14 +151,16 @@ CREATE TABLE IF NOT EXISTS `user` (
   `password` varchar(255) NOT NULL,
   `email` varchar(50) NOT NULL,
   `id_anggota` int(11) DEFAULT NULL,
+  `tgl_input` datetime NOT NULL,
+  `ip_input` varchar(30) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `user_name` (`user_name`,`email`),
   KEY `password` (`password`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
--- Dumping data for table `user`
+-- Dumping data untuk tabel `user`
 --
 
-INSERT INTO `user` (`id`, `user_name`, `password`, `email`, `id_anggota`) VALUES
-(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'satiri.a@gmail.com', NULL);
+INSERT INTO `user` (`id`, `user_name`, `password`, `email`, `id_anggota`, `tgl_input`, `ip_input`) VALUES
+(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'satiri.a@gmail.com', NULL, '0000-00-00 00:00:00', '');

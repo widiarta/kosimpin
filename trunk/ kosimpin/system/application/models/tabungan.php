@@ -4,7 +4,8 @@ class Tabungan extends Base_model {
 
     function __construct()
     {
-        parent::__construct("tabungan", "id");
+        parent::__construct();
+        $this->init("tabungan", "id");
     }
 	
     function get_saldo($kode_anggota)

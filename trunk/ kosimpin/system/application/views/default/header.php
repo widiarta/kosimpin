@@ -2,10 +2,10 @@
 <head>
 <title><?php echo $this->config->item('nama_koperasi'); ?> - <?php echo $this->config->item('alamat'); ?></title>
 <style type="text/css">
-
 body {
  background-color: #fff;
- margin: 40px;
+ margin: 0px;
+ padding: 10px;
  font-family: Lucida Grande, Verdana, Sans-serif;
  font-size: 14px;
  color: #4F5155;
@@ -38,11 +38,10 @@ code {
  padding: 12px 10px 12px 10px;
 }
 
-
 </style>
 </head>
 <body>
+<a href="<?php echo base_url();?>/index.php/main/logout">Logout</a>
 <h1><?php echo $this->config->item('nama_koperasi'); ?></h1>
-<a href="<?php echo base_url();?>/index.php/main/logout">Logout</a><br>
 </body>
 </html>

@@ -14,7 +14,7 @@ include(APPPATH."views/default/header.php");
 		<input type="text" name="tgltrans">
 	</td>
 </tr>
-<tr><td>jumlah</td>
+<tr><td>Jumlah</td>
 	<td>
 		<input type="text" name="jumlah">
 	</td>

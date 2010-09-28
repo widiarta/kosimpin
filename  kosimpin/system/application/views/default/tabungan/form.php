@@ -3,7 +3,8 @@ include(APPPATH."views/default/header.php");
 ?>
 <body>
  <b>Input Simpanan Sukarela</b><br>
-<form action="<?php echo base_url()?>/index.php/ctabungan/save">
+<?php echo validation_errors(); ?>
+<?php echo form_open('ctabungan/form'); ?>
 <table>
 <tr><td>Anggota</td>
 	<td>
@@ -22,10 +23,15 @@ include(APPPATH."views/default/header.php");
 </tr>
 <tr><td></td>
 	<td>
+		<input type="hidden" name="jenis_simpanan" value="<?php echo $jenis_simpanan; ?>">
 		<input type="submit" value="Simpan">
 	</td>
 </tr>
 </table>
 </form>
+<center><?php echo $sukses; ?></center>
+<?php
+include(APPPATH."views/default/footer.php");
+?>
 </body>
 </html>

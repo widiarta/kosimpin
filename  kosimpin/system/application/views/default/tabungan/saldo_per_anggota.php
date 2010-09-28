@@ -2,7 +2,8 @@
 include(APPPATH."views/default/header.php");
 ?>
 <body>
-<b>Saldo Tabungan</b>
+<b>Tabungan</b><br><br>
+<?php echo $jenis_tabungan->jenis_tabungan; ?>
 <table width="300px">
  <tr style="font-weight:bold;background-color:#EEEEEE;">
      <td>No.</td>
@@ -22,7 +23,7 @@ include(APPPATH."views/default/header.php");
             <?php echo $saldo->nama; ?>
             </a>
         </td>
-        <td>
+        <td align="right">
             <a href='<?php echo base_url();?>/index.php/ctabungan/detail/<?php echo $saldo->id_anggota; ?>'>
             <?php echo number_format($saldo->saldo,"."); ?>
             </a>
@@ -34,10 +35,13 @@ include(APPPATH."views/default/header.php");
   ?>
     <tr style="font-weight:bold;background-color:#EEEEEE;">
         <td></td>
-        <td>Total</td><td><?php echo number_format($total_saldo,"."); ?></td></tr>
+        <td>Total</td><td align="right"><?php echo number_format($total_saldo,"."); ?></td></tr>
   <?php
   }
 ?>
 </table>
+<?php
+include(APPPATH."views/default/footer.php");
+?>
 </body>
 </html>

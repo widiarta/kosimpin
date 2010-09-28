@@ -33,16 +33,23 @@ class Tabungan extends Base_model {
     /**
      * Data total saldo peranggota. adalah data in - out
      */
-    function get_saldo_per_anggota()
+    function get_saldo_per_anggota($type=null)
     {
         $fields = "sum(jumlah_in),sum(jumlah_out),sum(jumlah_in-jumlah_out) as 'saldo',tabungan.id_anggota,anggota.nama";
         $this->db->select($fields)
                  ->from($this->table_name)
                  ->join("anggota","anggota.id=tabungan.id_anggota","inner")
+                 ->join("jenis_tabungan","jenis_tabungan.id=tabungan.id_jenis_tabungan","inner")
                  ->group_by("anggota.nama")
                 ;
 
+        if($type!=null)
+        {
+            $this->db->where("tabungan.id_jenis_tabungan",$type);
+        }
+        
         $rec = $this->db->get();
+        
         if($rec->num_rows()>0)
         {
             return $rec->result();

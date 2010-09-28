@@ -25,5 +25,9 @@ Selamat datang di <?php echo $this->config->item('nama_koperasi'); ?><br/><br/>
 </form>
 <p>&nbsp;</p>
 <?php echo $message; ?>
+
+<?php
+include(APPPATH."views/default/footer.php");
+?>
 </body>
 </html>

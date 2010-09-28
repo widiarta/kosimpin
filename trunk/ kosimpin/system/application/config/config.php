@@ -324,6 +324,7 @@ $config['rewrite_short_tags'] = FALSE;
 */
 $config['proxy_ips'] = '';
 
-
+$config["app_name"] = "Kosimpin";
+$config["app_v"] = "0.1";
 /* End of file config.php */
 /* Location: ./system/application/config/config.php */

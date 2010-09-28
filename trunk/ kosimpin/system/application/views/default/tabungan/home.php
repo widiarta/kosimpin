@@ -43,4 +43,7 @@ per anggota.<br><br>
 </table>
 
 </body>
+<?php
+include(APPPATH."views/default/footer.php");
+?>
 </html>

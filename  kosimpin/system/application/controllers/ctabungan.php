@@ -13,8 +13,8 @@ class ctabungan extends Controller {
     {
         $data = array();
 
-        $total_saldo = $this->tabungan->get_saldo_per_anggota();
-	$data["saldo_tabungan"] = $total_saldo;
+        $total_saldo = $this->tabungan->get_saldo_per_type();
+        $data["saldo_tabungan"] = $total_saldo;
 	$this->load->view('default/tabungan/home',$data);	
     }
 

@@ -2,35 +2,14 @@
 include(APPPATH."views/default/header.php");
 ?>
 <body>
-<form action="<?php echo base_url()?>/index.php/ctabungan/save">
-<table>
-<tr><td>Anggota</td>
-	<td>
-		<input type="text" name="anggota">
-	</td>
-</tr>
-<tr><td>Tgl transaksi</td>
-	<td>
-		<input type="text" name="tgltrans">
-	</td>
-</tr>
-<tr><td>Jumlah</td>
-	<td>
-		<input type="text" name="jumlah">
-	</td>
-</tr>
-<tr><td></td>
-	<td>
-		<input type="submit" value="Simpan">
-	</td>
-</tr>
-</table>
-</form>
-<b>Saldo Tabungan</b>
+    <b>Tabungan</b><br><br>
+Klik pada jumlah untuk melihat rincian tabungan
+per anggota.<br><br>
+
 <table width="300px">
  <tr style="font-weight:bold;background-color:#EEEEEE;">
      <td>No.</td>
-     <td>Anggota</td><td>Tabungan</td></tr>
+     <td>Jenis Simpanan</td><td>Saldo</td></tr>
 <?php
   if($saldo_tabungan){
   $total_saldo = 0;
@@ -42,12 +21,11 @@ include(APPPATH."views/default/header.php");
   ?>
     <tr>
         <td><?php echo $c; ?></td>
-        <td><a href='<?php echo base_url();?>/index.php/anggota/<?php echo $saldo->id_anggota; ?>'>
-            <?php echo $saldo->nama; ?>
-            </a>
-        </td>
         <td>
-            <a href='<?php echo base_url();?>/index.php/ctabungan/detail/<?php echo $saldo->id_anggota; ?>'>
+            <?php echo $saldo->jenis_tabungan; ?>            
+        </td>
+        <td align="right">
+            <a href='<?php echo base_url();?>/index.php/ctabungan/detail/<?php echo $saldo->id_jenis_tabungan; ?>'>
             <?php echo number_format($saldo->saldo,"."); ?>
             </a>
         </td>
@@ -58,10 +36,11 @@ include(APPPATH."views/default/header.php");
   ?>
     <tr style="font-weight:bold;background-color:#EEEEEE;">
         <td></td>
-        <td>Total</td><td><?php echo number_format($total_saldo,"."); ?></td></tr>
+        <td>Total</td><td align="right"> <a href='<?php echo base_url();?>/index.php/ctabungan/detail/'><?php echo number_format($total_saldo,"."); ?></a></td></tr>
   <?php
   }
 ?>
 </table>
+
 </body>
 </html>

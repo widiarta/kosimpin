@@ -16,9 +16,38 @@ class ctabungan extends Controller {
         $data = array();
         $total_saldo = $this->tabungan->get_saldo_per_type();
         $data["saldo_tabungan"] = $total_saldo;
-	$this->load->view('default/tabungan/home',$data);	
+		$this->load->view('default/tabungan/home',$data);	
     }
 
+	/**
+	* 1. sukarela 
+	* 2. Pokok
+	* 3. Wajib
+	*/
+	function form($type=1)
+	{
+		$data = array();
+		
+		switch($type)
+		{
+			case 1:
+				$this->load->view('default/tabungan/form',$data);
+			break;
+			
+			case 2:
+				$this->load->view('default/tabungan/form_pokok',$data);
+			break;
+			
+			case 3:
+				$this->load->view('default/tabungan/form_wajib',$data);
+			break;
+			
+			default:
+				$this->load->view('default/tabungan/form',$data);
+			break;
+		}
+	}
+	
     /**
     * Menyimpan tabungan
     */

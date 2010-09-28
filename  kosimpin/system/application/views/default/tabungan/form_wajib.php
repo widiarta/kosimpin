@@ -2,7 +2,7 @@
 include(APPPATH."views/default/header.php");
 ?>
 <body>
- <b>Input Simpanan Sukarela</b><br>
+ <b>Input Simpanan Wajib</b><br>
 <form action="<?php echo base_url()?>/index.php/ctabungan/save">
 <table>
 <tr><td>Anggota</td>

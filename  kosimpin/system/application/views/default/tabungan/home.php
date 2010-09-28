@@ -2,7 +2,8 @@
 include(APPPATH."views/default/header.php");
 ?>
 <body>
-    <b>Tabungan</b><br><br>
+    <b>Tabungan</b><br>
+	Input Data : <a href='<?php echo base_url()?>index.php/ctabungan/form/1'>Sukarela</a> | <a href='<?php echo base_url()?>index.php/ctabungan/form/3'>Wajib</a> | <a href='<?php echo base_url()?>index.php/ctabungan/form/2'>Pokok</a><br><br>
 Klik pada jumlah untuk melihat rincian tabungan
 per anggota.<br><br>
 

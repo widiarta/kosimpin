@@ -17,5 +17,17 @@ class Anggota extends Base_Model {
     {
         
     }
+	
+	function get_name($id)
+	{
+		$rec = $this->get_by_id($id);
+		if($rec)
+		{
+			return $rec[0]->nama;
+		}
+		
+		return FALSE;
+	}
+	
 }
 ?>

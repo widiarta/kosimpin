@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Waktu pembuatan: 24. September 2010 jam 14:02
+-- Waktu pembuatan: 28. September 2010 jam 17:53
 -- Versi Server: 5.1.30
 -- Versi PHP: 5.2.8
 
@@ -38,12 +38,37 @@ CREATE TABLE IF NOT EXISTS `anggota` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `nomor_anggota` (`nomor_anggota`),
   KEY `nama` (`nama`,`tglmasuk`,`alamat`,`telpon`,`email`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data untuk tabel `anggota`
 --
 
+INSERT INTO `anggota` (`id`, `nomor_anggota`, `nama`, `tglmasuk`, `alamat`, `telpon`, `email`, `tgl_input`, `ip_input`) VALUES
+(1, '07030001', 'Ahmad Satiri', '2007-01-31', '-', '-', '-', '2010-09-27 12:36:06', ''),
+(2, '07030002', 'Farid Ma''ruf', '2000-09-05', 'telaga Mas', '-', '-', '2010-09-28 15:42:52', '127.0.0.1');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `jenis_tabungan`
+--
+
+CREATE TABLE IF NOT EXISTS `jenis_tabungan` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `jenis_tabungan` varchar(30) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `jenis_tabungan` (`jenis_tabungan`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data untuk tabel `jenis_tabungan`
+--
+
+INSERT INTO `jenis_tabungan` (`id`, `jenis_tabungan`) VALUES
+(1, 'Sukarela'),
+(2, 'Wajib'),
+(3, 'Pokok');
 
 -- --------------------------------------------------------
 
@@ -128,16 +153,30 @@ CREATE TABLE IF NOT EXISTS `tabungan` (
   `jumlah_out` decimal(10,0) NOT NULL,
   `ip_input` varchar(50) NOT NULL,
   `tgl_input` datetime NOT NULL,
+  `id_jenis_tabungan` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `id_anggota` (`id_anggota`),
   KEY `id_user` (`id_user`),
   KEY `tgl_transaksi` (`tgl_transaksi`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
 
 --
 -- Dumping data untuk tabel `tabungan`
 --
 
+INSERT INTO `tabungan` (`id`, `id_anggota`, `id_user`, `tgl_transaksi`, `jumlah_in`, `jumlah_out`, `ip_input`, `tgl_input`, `id_jenis_tabungan`) VALUES
+(1, 1, 1, '2010-09-27', 10000, 0, '127.0.0.1', '2010-09-27 12:36:41', 1),
+(2, 1, 1, '2010-09-28', 10000, 0, '127.0.0.1', '2010-09-02 12:22:25', 2),
+(3, 1, 1, '2010-09-28', 10000, 0, '127.0.0.1', '2010-09-02 12:22:25', 3),
+(4, 2, 1, '2010-09-28', 10000, 0, '127.0.0.1', '2010-09-28 15:43:32', 1),
+(5, 2, 1, '2010-09-28', 10000, 0, '127.0.0.1', '2010-09-28 15:43:32', 1),
+(6, 2, 1, '2010-09-28', 10000, 0, '127.0.0.1', '2010-09-28 15:43:32', 1),
+(7, 2, 1, '2010-09-28', 10000, 0, '127.0.0.1', '2010-09-28 15:43:32', 1),
+(8, 2, 1, '2010-09-28', 10000, 0, '127.0.0.1', '2010-09-28 15:43:32', 1),
+(9, 2, 1, '2010-09-28', 10000, 0, '127.0.0.1', '2010-09-28 15:43:32', 1),
+(10, 2, 1, '2010-09-28', 10000, 0, '127.0.0.1', '2010-09-28 15:43:32', 1),
+(11, 2, 1, '2010-09-28', 10000, 0, '127.0.0.1', '2010-09-28 15:43:32', 1),
+(12, 2, 1, '2010-09-28', 10000, 0, '127.0.0.1', '2010-09-28 15:43:32', 1);
 
 -- --------------------------------------------------------
 

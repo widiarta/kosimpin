@@ -9,6 +9,7 @@ class ctabungan extends Controller {
         $this->load->model("jenis_tabungan");
 		$this->load->model("user");
 		$this->load->model("anggota");
+		
     }
 
     function index()
@@ -24,27 +25,62 @@ class ctabungan extends Controller {
 	* 2. Pokok
 	* 3. Wajib
 	*/
-	function form($type=1)
+	function form($type=1,$sukses=0)
 	{
-		$data = array();
+		$this->load->helper(array('form', 'url'));
+		$this->load->library('form_validation');
 		
-		switch($type)
+		$this->form_validation->set_rules('anggota', 'Anggota', 'required');
+		$this->form_validation->set_rules('tgltrans', 'Tgltrans', 'required');
+		$this->form_validation->set_rules('jumlah', 'Jumlah', 'required');
+		$this->form_validation->set_rules('jenis_simpanan', 'Jenis_simpanan', 'required');
+		
+		$data = array();
+		if($sukses==1)
 		{
-			case 1:
-				$this->load->view('default/tabungan/form',$data);
-			break;
-			
-			case 2:
-				$this->load->view('default/tabungan/form_pokok',$data);
-			break;
-			
-			case 3:
-				$this->load->view('default/tabungan/form_wajib',$data);
-			break;
-			
-			default:
-				$this->load->view('default/tabungan/form',$data);
-			break;
+			$data["sukses"] = "Input Sukses";
+		}
+		else
+		{
+			$data["sukses"] = "";
+		}
+		
+		if ($this->form_validation->run() == FALSE)
+		{
+			switch($type)
+			{
+				case 1:
+					$data["jenis_simpanan"]=1;
+					$this->load->view('default/tabungan/form',$data);
+				break;
+				
+				case 2:
+					$data["jenis_simpanan"]=2;
+					$this->load->view('default/tabungan/form_pokok',$data);
+				break;
+				
+				case 3:
+					$data["jenis_simpanan"]=3;
+					$this->load->view('default/tabungan/form_wajib',$data);
+				break;
+				
+				default:
+					$this->load->view('default/tabungan/form',$data);
+				break;
+			}		
+		}
+		else
+		{
+			//sukses
+			$data = array(
+				"id_anggota" => $this->input->post("anggota"),
+				"jumlah_in" => $this->input->post("jumlah"),
+				"id_jenis_tabungan" => $this->input->post("jenis_simpanan"),
+				"tgl_transaksi" => $this->input->post("tgltrans")
+				);
+				
+			$this->tabungan->save($data);
+			redirect("ctabungan/form/".$this->input->post("jenis_simpanan")."/1");
 		}
 	}
 	

@@ -5,9 +5,10 @@ class ctabungan extends Controller {
     function __construct()
     {
         parent::Controller();
-	$this->load->model("tabungan");
+		$this->load->model("tabungan");
         $this->load->model("jenis_tabungan");
-	$this->load->model("user");
+		$this->load->model("user");
+		$this->load->model("anggota");
     }
 
     function index()
@@ -48,12 +49,30 @@ class ctabungan extends Controller {
         }
         
         $data["jenis_tabungan"] = $jenis;
-	$this->load->view('default/tabungan/saldo_per_anggota',$data);
+		$data["id_jenis"] = $id_jenis;
+		$this->load->view('default/tabungan/saldo_per_anggota',$data);
 
     }
 
-    function detail_anggota($id_anggota)
+    function detail_anggota($id_anggota,$jenis=null)
     {
-        
+		$trans = $this->tabungan->get_detail_per_anggota($id_anggota,$jenis);	
+		
+        if($jenis!=null)
+        {
+            $result = $this->jenis_tabungan->get_by_id($jenis);
+            $jenis = $result[0];
+        }
+        else
+        {
+            $jdata = array("jenis_tabungan"=>"Total Simpanan");
+            $jenis = (Object) $jdata;
+        }
+		
+        $data["detail_transaksi"] = $trans;
+		$data["jenis_tabungan"] = $jenis;
+		$data["id_jenis"] = $jenis; 
+		$data["nama_anggota"] = $this->anggota->get_name($id_anggota);
+		$this->load->view('default/tabungan/rinci_per_anggota',$data);		
     }
 }

@@ -30,10 +30,31 @@ class Tabungan extends Base_model {
         return FALSE;
     }
 
+	function get_detail_per_anggota($id_anggota,$jenis)
+	{
+        $this->db->select("*")
+                 ->from("tabungan")
+				 ->where("id_anggota",$id_anggota);
+				 
+				
+        if($jenis!=null)
+        {
+            $this->db->where("tabungan.id_jenis_tabungan",$jenis);
+        }
+		
+		$rec = $this->db->get();
+		
+		if($rec->num_rows()>0)
+		{
+			return $rec->result();
+		}
+		return FALSE;
+	}
+	
     /**
      * Data total saldo peranggota. adalah data in - out
      */
-    function get_saldo_per_anggota($type=null)
+    function get_saldo_per_anggota($type=null,$id_anggota=null)
     {
         $fields = "sum(jumlah_in),sum(jumlah_out),sum(jumlah_in-jumlah_out) as 'saldo',tabungan.id_anggota,anggota.nama";
         $this->db->select($fields)
@@ -47,6 +68,11 @@ class Tabungan extends Base_model {
         {
             $this->db->where("tabungan.id_jenis_tabungan",$type);
         }
+
+        if($id_anggota!=null)
+        {
+            $this->db->where("tabungan.id_anggota",$id_anggota);
+        }
         
         $rec = $this->db->get();
         
@@ -54,7 +80,25 @@ class Tabungan extends Base_model {
         {
             return $rec->result();
         }
-
+		/**
+		paging
+		$config['base_url'] 	= base_url().'index.php/tabungan/artikel/';
+		$config['total_rows']	= $query->num_rows();
+		$config['per_page'] 	= '30';
+		$num			= $config['per_page'];
+		$offset			= $this->uri->segment(3);
+		$offset 		= ( ! is_numeric($offset) || $offset < 1) ? 0 : $offset;
+		
+		if(empty($offset))
+		{
+			$offset=0;
+		}
+		
+		$this->pagination->initialize($config);		
+		
+		$data['query']		= $this->db->query($string_query." limit $offset,$num");	
+		$data['base']		= $this->config->item('base_url');		
+		*/
         return FALSE;
     }
 

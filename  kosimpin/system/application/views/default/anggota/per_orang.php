@@ -14,7 +14,8 @@ Klik pada jumlah untuk melihat rincian tabungan/pinjaman.
 <br><br>
 <table>
 <tr><td>Saldo Total Simpanan</td><td>:</td><td align="right">&nbsp;<a href='<?php echo base_url();?>index.php/ctabungan/detail_anggota/<?php echo $anggota[0]->id; ?>'><?php echo number_format($tabungan[0]->saldo,","); ?></a></td></tr> 
-<tr><td>Total Pinjaman</td><td>:</td><td align="right">&nbsp;<a href=''><?php echo number_format($pinjaman,","); ?></a></td></tr>
+<tr><td>Total Pinjaman</td><td>:</td><td align="right">&nbsp;<a href=''><?php echo number_format($pinjaman[0]->tpinjaman,","); ?></a></td></tr>
+<tr><td><B>Total Saldo Pinjaman</b></td><td>:</td><td align="right">&nbsp;<a href='<?php echo base_url(); ?>/index.php/cpinjaman/'><?php echo number_format($pinjaman[0]->tsaldo,","); ?></a></td></tr>
 </table>
 </body>
 <?php

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Waktu pembuatan: 28. September 2010 jam 17:53
+-- Waktu pembuatan: 01. Oktober 2010 jam 10:13
 -- Versi Server: 5.1.30
 -- Versi PHP: 5.2.8
 
@@ -122,7 +122,7 @@ CREATE TABLE IF NOT EXISTS `pengeluaran` (
 --
 
 CREATE TABLE IF NOT EXISTS `pinjaman` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_anggota` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
   `tgl_transaksi` date NOT NULL,
@@ -130,13 +130,18 @@ CREATE TABLE IF NOT EXISTS `pinjaman` (
   `tgl_input` datetime NOT NULL,
   `jumlah_pinjaman` decimal(10,0) NOT NULL,
   `saldo` decimal(10,0) NOT NULL COMMENT 'saldo = jumlah_pinjaman + jasa',
-  `jumlah_jasa` decimal(10,0) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `jumlah_jasa` decimal(10,0) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_anggota` (`id_anggota`),
+  KEY `id_user` (`id_user`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data untuk tabel `pinjaman`
 --
 
+INSERT INTO `pinjaman` (`id`, `id_anggota`, `id_user`, `tgl_transaksi`, `ip_input`, `tgl_input`, `jumlah_pinjaman`, `saldo`, `jumlah_jasa`) VALUES
+(1, 1, 1, '2010-10-01', '127.0.0.1', '2010-10-01 08:59:46', 1000000, 1000000, 100000);
 
 -- --------------------------------------------------------
 
@@ -158,7 +163,7 @@ CREATE TABLE IF NOT EXISTS `tabungan` (
   KEY `id_anggota` (`id_anggota`),
   KEY `id_user` (`id_user`),
   KEY `tgl_transaksi` (`tgl_transaksi`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
 
 --
 -- Dumping data untuk tabel `tabungan`
@@ -176,7 +181,10 @@ INSERT INTO `tabungan` (`id`, `id_anggota`, `id_user`, `tgl_transaksi`, `jumlah_
 (9, 2, 1, '2010-09-28', 10000, 0, '127.0.0.1', '2010-09-28 15:43:32', 1),
 (10, 2, 1, '2010-09-28', 10000, 0, '127.0.0.1', '2010-09-28 15:43:32', 1),
 (11, 2, 1, '2010-09-28', 10000, 0, '127.0.0.1', '2010-09-28 15:43:32', 1),
-(12, 2, 1, '2010-09-28', 10000, 0, '127.0.0.1', '2010-09-28 15:43:32', 1);
+(12, 2, 1, '2010-09-28', 10000, 0, '127.0.0.1', '2010-09-28 15:43:32', 1),
+(13, 1, 0, '2010-01-02', 13500, 0, 'localhost', '2010-09-28 18:19:43', 1),
+(14, 1, 0, '2010-01-02', 13500, 0, 'localhost', '2010-09-28 18:22:09', 1),
+(15, 2, 0, '2010-01-02', 14500, 0, 'localhost', '2010-09-28 18:22:31', 1);
 
 -- --------------------------------------------------------
 

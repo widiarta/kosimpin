@@ -27,11 +27,14 @@ class ctabungan extends Controller {
 	*/
 	function form($type=1,$sukses=0)
 	{
-		$this->load->helper(array('form', 'url'));
+		$this->load->helper(array('form', 'url','tanggal'));
 		$this->load->library('form_validation');
 		
+				
 		$this->form_validation->set_rules('anggota', 'Anggota', 'required');
-		$this->form_validation->set_rules('tgltrans', 'Tgltrans', 'required');
+		$this->form_validation->set_rules('tanggal', 'tanggal', 'required');
+		$this->form_validation->set_rules('bulan', 'Bulan', 'required');
+		$this->form_validation->set_rules('tahun', 'Tahun', 'required');
 		$this->form_validation->set_rules('jumlah', 'Jumlah', 'required');
 		$this->form_validation->set_rules('jenis_simpanan', 'Jenis_simpanan', 'required');
 		
@@ -47,6 +50,9 @@ class ctabungan extends Controller {
 		
 		if ($this->form_validation->run() == FALSE)
 		{
+			//get all angota
+			$daftar_anggota = $this->anggota->get_array_anggota("nama");
+			$data["daftar_anggota"] = $daftar_anggota;
 			switch($type)
 			{
 				case 1:
@@ -71,12 +77,15 @@ class ctabungan extends Controller {
 		}
 		else
 		{
+			//tanggal
+			$tanggal = $this->input->post("tahun")."-".$this->input->post("bulan")."-".$this->input->post("tanggal");
+			
 			//sukses
 			$data = array(
 				"id_anggota" => $this->input->post("anggota"),
 				"jumlah_in" => $this->input->post("jumlah"),
 				"id_jenis_tabungan" => $this->input->post("jenis_simpanan"),
-				"tgl_transaksi" => $this->input->post("tgltrans")
+				"tgl_transaksi" => "$tanggal"
 				);
 				
 			$this->tabungan->save($data);

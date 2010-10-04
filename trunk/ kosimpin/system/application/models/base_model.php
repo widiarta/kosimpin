@@ -35,6 +35,26 @@ class Base_model extends Model {
         $this->db->delete($this->table_name,$where);
     }
 
+	function get_all($order_by=null)
+	{
+        $this->db->select("*")
+                 ->from($this->table_name);
+		
+		if($order_by!=null)
+		{
+			$this->db->order_by($order_by,"asc");
+		}
+		
+        $rec = $this->db->get();
+		
+		if($rec->num_rows()>0)
+        {
+            return $rec->result();
+        }
+
+        return FALSE;
+	}
+	
     /**
      * 
      * @param int $id

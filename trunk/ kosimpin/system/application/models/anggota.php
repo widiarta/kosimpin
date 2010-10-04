@@ -29,5 +29,20 @@ class Anggota extends Base_Model {
 		return FALSE;
 	}
 	
+	function get_array_anggota($order_by=null)
+	{
+		$rec = $this->get_all($order_by);
+		$hasil = array();
+		if($rec)
+		{
+			foreach($rec as $row)
+			{
+				$hasil["$row->id"] = "$row->nama";
+			}
+		}
+		
+		return $hasil;
+	}
+	
 }
 ?>

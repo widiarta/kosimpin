@@ -1,3 +1,4 @@
+ <br/><br/><br/>
 <?php
 /* 
  * Anda berhak menggunakan aplikasi ini dengan syarat harus

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Waktu pembuatan: 01. Oktober 2010 jam 10:13
+-- Waktu pembuatan: 04. Oktober 2010 jam 10:42
 -- Versi Server: 5.1.30
 -- Versi PHP: 5.2.8
 
@@ -51,6 +51,27 @@ INSERT INTO `anggota` (`id`, `nomor_anggota`, `nama`, `tglmasuk`, `alamat`, `tel
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `jenis_pembayaran_pinjaman`
+--
+
+CREATE TABLE IF NOT EXISTS `jenis_pembayaran_pinjaman` (
+  `id_jenis_pembayaran` int(11) NOT NULL AUTO_INCREMENT,
+  `nama_pembayaran` varchar(30) NOT NULL,
+  PRIMARY KEY (`id_jenis_pembayaran`),
+  UNIQUE KEY `nama_pembayaran` (`nama_pembayaran`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data untuk tabel `jenis_pembayaran_pinjaman`
+--
+
+INSERT INTO `jenis_pembayaran_pinjaman` (`id_jenis_pembayaran`, `nama_pembayaran`) VALUES
+(1, 'Pokok'),
+(2, 'Jasa');
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `jenis_tabungan`
 --
 
@@ -84,6 +105,8 @@ CREATE TABLE IF NOT EXISTS `pembayaran_pinjaman` (
   `ip_input` varchar(50) NOT NULL,
   `tgl_input` datetime NOT NULL,
   `jumlah_pembayaran` decimal(10,0) NOT NULL,
+  `keterangan` varchar(50) DEFAULT NULL,
+  `jenis_pembayaran` int(11) NOT NULL DEFAULT '1' COMMENT 'pokok atau jasa',
   PRIMARY KEY (`id`),
   KEY `id_pinjaman` (`id_pinjaman`,`id_user`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
@@ -200,6 +223,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `id_anggota` int(11) DEFAULT NULL,
   `tgl_input` datetime NOT NULL,
   `ip_input` varchar(30) NOT NULL,
+  `user_level` int(11) NOT NULL DEFAULT '1' COMMENT 'level user. 99 admin, 1. user biasa',
   PRIMARY KEY (`id`),
   UNIQUE KEY `user_name` (`user_name`,`email`),
   KEY `password` (`password`)
@@ -209,5 +233,5 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- Dumping data untuk tabel `user`
 --
 
-INSERT INTO `user` (`id`, `user_name`, `password`, `email`, `id_anggota`, `tgl_input`, `ip_input`) VALUES
-(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'satiri.a@gmail.com', NULL, '0000-00-00 00:00:00', '');
+INSERT INTO `user` (`id`, `user_name`, `password`, `email`, `id_anggota`, `tgl_input`, `ip_input`, `user_level`) VALUES
+(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'satiri.a@gmail.com', NULL, '0000-00-00 00:00:00', '', 1);

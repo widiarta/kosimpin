@@ -28,10 +28,10 @@ include(APPPATH."views/default/header.php");
 	}
   ?>
     <tr bgcolor="<?php echo $background_color; ?>">
-        <td><?php echo $c; ?></td>
-        <td><?php echo date("d-m-Y",strtotime($trans->tgl_transaksi)); ?></td>
-        <td align="right"><?php echo number_format($trans->jumlah_in,"."); ?></td>
-        <td align="right"><?php echo number_format($trans->jumlah_out,"."); ?>
+        <td width='20%'><?php echo $c; ?></td>
+        <td width='30%'><?php echo date("d-m-Y",strtotime($trans->tgl_transaksi)); ?></td>
+        <td align="right" width='20%'><?php echo number_format($trans->jumlah_in,"."); ?></td>
+        <td align="right" width='30%'><?php echo number_format($trans->jumlah_out,"."); ?>
         </td>		
         </tr>
   <?php
@@ -39,10 +39,10 @@ include(APPPATH."views/default/header.php");
   }
   ?>
     <tr style="font-weight:bold;background-color:#EEEEEE;">
-        <td></td>
-        <td></td>
-		<td align="right"><?php echo number_format($total_in,"."); ?></td>
-		<td align="right"><?php echo number_format($total_out,"."); ?></td>
+        <td width='20%'></td>
+        <td width='30%'></td>
+		<td align="right" width='20%'><?php echo number_format($total_in,"."); ?></td>
+		<td align="right" width='30%'><?php echo number_format($total_out,"."); ?></td>
 	</tr>
   <?php
   }

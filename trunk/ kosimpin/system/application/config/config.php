@@ -326,5 +326,9 @@ $config['proxy_ips'] = '';
 
 $config["app_name"] = "Kosimpin";
 $config["app_v"] = "0.1";
+
+//session checker
+$config["session_var_to_watch"] = "username";
+$config["page_init"] = array("main/index","main/login");
 /* End of file config.php */
 /* Location: ./system/application/config/config.php */

@@ -40,7 +40,8 @@ class main extends Common {
 		{
 			$newdata = array(
 							   'username'  => $this->input->post("user"),
-							   'logged_in' => TRUE
+							   'logged_in' => TRUE,
+							   'level' => 0
 						   );
 
 			$this->session->set_userdata($newdata);		

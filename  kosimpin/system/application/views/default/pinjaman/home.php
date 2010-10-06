@@ -11,8 +11,8 @@ include(APPPATH."views/default/header.php");
 		<td align='center'>No.</td>
 		<td align='center'>Anggota</td>
 		<td align='center'>Total</td>
-		<td align='center'>Total Saldo</td>
 		<td align='center'>Jasa</td>
+		<td align='center'>Total Saldo</td>
 	</tr>
 	<?php
 	  if($data_pinjaman)
@@ -28,9 +28,9 @@ include(APPPATH."views/default/header.php");
 	<tr>
 		<td align="center"><?php echo $c; ?>.</td>
 		<td><a href='<?php echo base_url()?>index.php/canggota/rekap/<?php echo $pinjaman->id_anggota; ?>'><?php echo $pinjaman->nama; ?></a></td>
-		<td align='right'><?php echo number_format($pinjaman->tpinjaman,","); ?></td>
-		<td align='right'><?php echo number_format($pinjaman->tsaldo,","); ?></td>
+		<td align='right'><?php echo number_format($pinjaman->tpinjaman,","); ?></td>		
 		<td align='right'><?php echo number_format($pinjaman->tjasa,","); ?></td>
+		<td align='right'><a href='<?php echo base_url()?>index.php/cpinjaman/detail/<?php echo $pinjaman->id_anggota; ?>'><?php echo number_format($pinjaman->tsaldo,","); ?></a></td>
 	</tr>
 	
 	<?php
@@ -42,8 +42,8 @@ include(APPPATH."views/default/header.php");
 		<td align='center'></td>
 		<td align='center'></td>
 		<td align='right'><?php echo number_format($tpinjaman,","); ?></td>
-		<td align='right'><?php echo number_format($tsaldo,","); ?></td>
 		<td align='right'><?php echo number_format($tjasa,","); ?></td>
+		<td align='right'><?php echo number_format($tsaldo,","); ?></td>		
 	</tr>	
 	</table>
 </body>

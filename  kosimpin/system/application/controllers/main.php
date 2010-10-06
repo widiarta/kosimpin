@@ -57,7 +57,7 @@ class main extends Common {
 		if($this->session->userdata('logged_in')==true && strlen($this->session->userdata('username'))>0)
 		{
 			$data = array();
-			$this->load->view('default/home',$data);	
+			$this->_load_view('home',$data);	
 		}
 		else
 		{
@@ -65,7 +65,7 @@ class main extends Common {
 		}
 	}
 	
-	function logout()
+	function logout($nextpage=null)
 	{
 		$newdata = array(
 						   'username'  => "",
@@ -73,7 +73,16 @@ class main extends Common {
 					   );
 
 		$this->session->set_userdata($newdata);			
-		redirect("main/index/0",null);
+		
+		if($nextpage==null)
+		{
+			redirect("main/index/0",null);
+		}
+		else
+		{
+			$nextpage = str_replace("~","/",$nextpage);
+			redirect($nextpage,null);
+		}
 	}
 }
 

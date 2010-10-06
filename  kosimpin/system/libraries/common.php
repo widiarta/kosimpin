@@ -6,23 +6,30 @@ class Common extends Controller {
 		parent::Controller();	
 	}
 	
-	function _set_view_dir($versi)
+	function _set_view_dir($versi=null)
 	{
-		switch($versi)
+		if($versi==null)
 		{
-			case "m":
-				$this->session->set_userdata('view_dir', 'default');
-			break;
+			//check in session
+		}
+		else
+		{
+			switch($versi)
+			{
+				case "m":
+					$this->session->set_userdata('view_dir', 'default');
+				break;
 
-			case "full":
-				$this->session->set_userdata('view_dir', 'desktop');
-			break;
-			
-			default:
-				$this->session->set_userdata('view_dir', 'default');
-			break;
-			
-		}	
+				case "full":
+					$this->session->set_userdata('view_dir', 'desktop');
+				break;
+				
+				default:
+					$this->session->set_userdata('view_dir', 'default');
+				break;
+				
+			}	
+		}
 	}
 	
 	/**
@@ -33,5 +40,9 @@ class Common extends Controller {
 		$this->load->view($this->session->userdata('view_dir')."/$view",$data);
 	}
 	
+	function redirect()
+	{
+		redirect("main/index/0",null);
+	}
 }
 ?>

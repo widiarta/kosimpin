@@ -1,6 +1,6 @@
 <?php
 
-class canggota extends Controller {
+class canggota extends Common {
 
 	function __construct()
 	{
@@ -16,7 +16,7 @@ class canggota extends Controller {
 	function index()
 	{
 		$data = array();
-		$this->load->view('default/anggota/home',$data);
+		$this->_load_view('anggota/home',$data);
 	}
 	
 	/**
@@ -30,6 +30,6 @@ class canggota extends Controller {
 		$data["anggota"] = $this->anggota->get_by_id($id_anggota);
 		$data["tabungan"] = $this->tabungan->get_saldo_per_anggota(null,$id_anggota);
 		$data["pinjaman"] = $this->pinjaman->get_saldo_per_anggota($id_anggota);
-		$this->load->view('default/anggota/per_orang',$data);
+		$this->_load_view('anggota/per_orang',$data);
 	}
 }

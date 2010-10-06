@@ -1,6 +1,6 @@
 <?php
 
-class cpinjaman extends Controller {
+class cpinjaman extends Common {
 
 	function __construct()
 	{
@@ -17,7 +17,7 @@ class cpinjaman extends Controller {
 	{
 		$data = array();
 		$data["data_pinjaman"] = $this->pinjaman->get_saldo_per_anggota();
-		$this->load->view('default/pinjaman/home',$data);	
+		$this->_load_view('pinjaman/home',$data);	
 	}
 	
 	/**

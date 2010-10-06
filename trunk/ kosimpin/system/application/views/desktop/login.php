@@ -6,22 +6,37 @@
 </head>
 <body>
 
+<center>
 <h1><?php echo $this->config->item('nama_koperasi'); ?></h1>
 Selamat datang di <?php echo $this->config->item('nama_koperasi'); ?><br/><br/>
+</center>
 <form name="form1" method="post" action="<?php echo base_url();?>/index.php/main/login">
-  <table width="300" border="0">
+  <table width="300" border="0" align="center" cellpadding="3" style="background-color:#EEEEEE;border:solid 1px #CCCCCC;" class="form">
     <tr>
-      <td width="111">User</td>
+	  <td>&nbsp;</td>	
+      <td width="111">&nbsp;</td>
+      <td width="179">&nbsp;</td>
+    </tr>  
+    <tr>
+      <td>&nbsp;</td>
+	  <td width="111">User</td>
       <td width="179"><input name="user" type="text" id="user" maxlength="10" size="12"></td>
     </tr>
     <tr>
+	  <td>&nbsp;</td>	
       <td>Password</td>
       <td><input name="password" type="password" id="password" maxlength="10" size="12"></td>
     </tr>
     <tr>
+	  <td>&nbsp;</td>	
       <td>&nbsp;</td>
       <td><input type="submit" name="button" id="button" value="Login"></td>
     </tr>
+    <tr>
+	  <td>&nbsp;</td>	
+      <td width="111">&nbsp;</td>
+      <td width="179">&nbsp;</td>
+    </tr>  	
   </table>
 </form>
 <p>&nbsp;</p>
@@ -30,7 +45,7 @@ Selamat datang di <?php echo $this->config->item('nama_koperasi'); ?><br/><br/>
 <center>
 <small>
 Lihat dalam versi : <br>
-Mobile Web | <a href='<?php echo base_url();?>index.php/main/index/0/full'>Desktop Web</a>
+<a href='<?php echo base_url();?>index.php/main/index/0/m'>Mobile Web</a> | Desktop Web</a>
 </small>
 </center> 
 <?php

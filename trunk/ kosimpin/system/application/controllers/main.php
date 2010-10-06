@@ -1,16 +1,20 @@
 <?php
 
-class main extends Controller {
+class main extends Common {
 
 	function __construct()
 	{
-		parent::Controller();	
+		parent::__construct();
 		$this->load->model("tabungan");
 		$this->load->model("user");
 	}
 	
-	function index($failed=0)
+		
+	function index($failed=0,$versi="m")
 	{
+		
+		$this->_set_view_dir($versi);
+		
 		if($this->session->userdata('logged_in')==true && strlen($this->session->userdata('username'))>0)
 		{
 			//redirect to home
@@ -25,7 +29,7 @@ class main extends Controller {
 				$data["message"]="Login Failed. Please notice that password is case sensitive.";
 			}
 			
-			$this->load->view('default/login',$data);
+			$this->_load_view("login",$data);
 		}
 	}
 	

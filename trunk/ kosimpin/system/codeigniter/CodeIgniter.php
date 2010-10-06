@@ -146,6 +146,7 @@ else
 
 // Load the base controller class
 load_class('Controller', FALSE);
+load_class('Common', FALSE);
 
 // Load the local application controller
 // Note: The Router class automatically validates the controller path.  If this include fails it 

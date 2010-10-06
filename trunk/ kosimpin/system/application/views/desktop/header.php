@@ -2,6 +2,7 @@
 <head>
 <title><?php echo $this->config->item('nama_koperasi'); ?> - <?php echo $this->config->item('alamat'); ?></title>
 <link type="text/css" rel="stylesheet" href="<?php echo base_url()?>/assets/css/default.css"/>
+<script language="javascript" src="<?php echo base_url()?>/assets/js/jquery/jquery.js"></script>
 <link href="<?php echo base_url();?>/assets/images/kosim.png" rel='shortcut icon'/>
 </head>
 <body>

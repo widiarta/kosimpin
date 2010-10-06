@@ -21,13 +21,15 @@ class Pinjaman extends Base_Model {
 		 ->where("tgl_transaksi","$tgl_sampai","<=");
 
         $rec = $this->db->get();
-	if($rec->num_rows()>0)
-	{
+		if($rec->num_rows()>0)
+		{
             return $rec->result();
+		}
+		else
+		{		
+			return FALSE;
+		}
 	}
-		
-	return FALSE;
-    }
 	
     function bayar_pinjaman()
     {
@@ -37,9 +39,46 @@ class Pinjaman extends Base_Model {
     {
     }
 	
-    function get_detail_pembayaran()
+    function get_detail_pembayaran($id_pinjaman)
     {
+		$this->db->select("*")
+			->from("pembayaran_pinjaman")
+			->where("id_pinjaman",$id_pinjaman)
+			->order_by("tgl_transaksi","asc");
+		
+		$rec = $this->db->get();
+		
+		if($rec->num_rows()>0)
+		{
+			return $rec->result();
+		}
+		else
+		{
+			return FALSE;
+		}
     }
+	
+	function get_saldo_per_pinjaman($id_anggota)
+	{
+        $fields = "jumlah_pinjaman as 'tpinjaman',sum(saldo+jumlah_jasa) as 'tsaldo',jumlah_jasa as 'tjasa',pinjaman.id,anggota.nama,pinjaman.id_anggota";
+        $this->db->select($fields)
+                 ->from($this->table_name)
+                 ->join("anggota","anggota.id=pinjaman.id_anggota","inner")
+                 ->group_by("pinjaman.id")
+				 ->order_by("tsaldo","desc")
+                ;
+		
+		$this->db->where("pinjaman.id_anggota",$id_anggota);
+		
+		$rec = $this->db->get();
+        
+        if($rec->num_rows()>0)
+        {
+            return $rec->result();
+        }
+        return FALSE;
+
+	}
 	
 	function get_saldo_per_anggota($id_anggota=null)
     {

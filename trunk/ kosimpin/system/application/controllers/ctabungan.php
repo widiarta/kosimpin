@@ -1,6 +1,6 @@
 <?php
 
-class ctabungan extends Controller {
+class ctabungan extends Common {
 
     function __construct()
     {
@@ -17,7 +17,7 @@ class ctabungan extends Controller {
         $data = array();
         $total_saldo = $this->tabungan->get_saldo_per_type();
         $data["saldo_tabungan"] = $total_saldo;
-		$this->load->view('default/tabungan/home',$data);	
+		$this->_load_view('tabungan/home',$data);	
     }
 
 	/**
@@ -57,21 +57,21 @@ class ctabungan extends Controller {
 			{
 				case 1:
 					$data["jenis_simpanan"]=1;
-					$this->load->view('default/tabungan/form',$data);
+					$this->_load_view('tabungan/form',$data);
 				break;
 				
 				case 2:
 					$data["jenis_simpanan"]=2;
-					$this->load->view('default/tabungan/form_pokok',$data);
+					$this->_load_view('tabungan/form_pokok',$data);
 				break;
 				
 				case 3:
 					$data["jenis_simpanan"]=3;
-					$this->load->view('default/tabungan/form_wajib',$data);
+					$this->_load_view('tabungan/form_wajib',$data);
 				break;
 				
 				default:
-					$this->load->view('default/tabungan/form',$data);
+					$this->_load_view('tabungan/form',$data);
 				break;
 			}		
 		}
@@ -124,7 +124,7 @@ class ctabungan extends Controller {
         
         $data["jenis_tabungan"] = $jenis;
 		$data["id_jenis"] = $id_jenis;
-		$this->load->view('default/tabungan/saldo_per_anggota',$data);
+		$this->_load_view('tabungan/saldo_per_anggota',$data);
 
     }
 
@@ -147,6 +147,6 @@ class ctabungan extends Controller {
 		$data["jenis_tabungan"] = $jenis;
 		$data["id_jenis"] = $jenis; 
 		$data["nama_anggota"] = $this->anggota->get_name($id_anggota);
-		$this->load->view('default/tabungan/rinci_per_anggota',$data);		
+		$this->_load_view('tabungan/rinci_per_anggota',$data);		
     }
 }

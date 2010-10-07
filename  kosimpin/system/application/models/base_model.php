@@ -27,13 +27,15 @@ class Base_model extends Model {
     {
         $data["tgl_input"] = date("Y-m-d H:i:s");
         $data["ip_input"] = $_SERVER["HTTP_HOST"];
-        $this->db->insert($this->table_name,$data);
+        $id = $this->db->insert($this->table_name,$data);
+		return $id;
     }
 
     function delete($id)
     {
         $where = array("$this->field_id"=>$id);
-        $this->db->delete($this->table_name,$where);
+        $result = $this->db->delete($this->table_name,$where);
+		return $result;
     }
 
 	function get_all($order_by=null)

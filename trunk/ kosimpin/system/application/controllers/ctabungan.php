@@ -4,7 +4,7 @@ class ctabungan extends Common {
 
     function __construct()
     {
-        parent::Controller();
+        parent::__construct();
 		$this->load->model("tabungan");
         $this->load->model("jenis_tabungan");
 		$this->load->model("user");

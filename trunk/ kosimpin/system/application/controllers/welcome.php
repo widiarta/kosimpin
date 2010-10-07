@@ -1,10 +1,10 @@
 <?php
 
-class Welcome extends Controller {
+class Welcome extends Common {
 
 	function __construct()
 	{
-		parent::Controller();	
+		parent::__construct();	
 		$this->load->model("tabungan");
 	}
 	

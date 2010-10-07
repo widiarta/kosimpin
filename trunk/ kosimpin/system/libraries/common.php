@@ -43,6 +43,17 @@ class Common extends Controller {
 		$this->output->set_output($data);
 	}
 	
+	private function _built_xml($xml)
+	{
+		$this->output->set_header("Cache-Control: no-cache");
+		$this->output->set_header("Expires: -1");
+		$this->output->set_header("Content-type: text/xml");
+
+		$xmlContent = "<?xml version=\"1.0\" ?>\n";
+		$xmlContent .= str_replace("><", ">\n<", $xml);
+		$this->output->set_output($xmlContent);
+	}
+	
 	/**
 	* view dispatcher
 	*/

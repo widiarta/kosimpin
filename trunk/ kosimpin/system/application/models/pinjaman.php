@@ -31,8 +31,38 @@ class Pinjaman extends Base_Model {
 		}
 	}
 	
-    function bayar_pinjaman()
+	/**
+	* data is array contain id_pinjaman,jumlah_pembayaran,keterangan
+	*/
+    function bayar_pinjaman($data)
     {
+		if(is_array($data))
+		{
+			$data = (Object) $data;
+			//make sure have pinjaman
+			$current = $this->pinjaman->get_by_id($data->id_pinjaman);
+			if($current)
+			{
+				$new_saldo = $current[0]->saldo - $data->jumlah_pembayaran;
+				$pembayaran_update = array("saldo"=>$new_saldo);
+				
+				//input detail
+				$rec = $this->db->insert("pembayaran_pinjaman",$data);
+				
+				if($rec)
+				{
+					$this->db->where("id",$data->id_pinjaman);
+					$this->db->update("pinjaman",$pembayaran_update);
+				}
+				
+				return FALSE;
+			}
+			return FALSE;
+		}
+		else
+		{
+			return FALSE;
+		}
     }
 	
     function batalkan_pinjaman()

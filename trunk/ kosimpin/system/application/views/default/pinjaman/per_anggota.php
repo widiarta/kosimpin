@@ -2,7 +2,7 @@
 include(APPPATH."views/default/header.php");
 ?>
 <body>
-    <b>Pinjaman : <?php echo $nama_anggota; ?></b>
+    <b>Daftar Pinjaman : <?php echo $nama_anggota; ?></b>
 	<table style='border:solid 1px #EEEEEE;'>
 	<?php
 	  $tsaldo=0;$tpinjaman=0;$tjasa=0;
@@ -15,19 +15,23 @@ include(APPPATH."views/default/header.php");
 		<td align='center'>&nbsp;</td>
 	</tr>
 	<?php
-	  if($pembayaran)
+	  if($data_pinjaman)
 	  {
 		$c=1;
-		foreach($pembayaran as $rp)
+		foreach($data_pinjaman as $rp)
 		{
+		
+		$tpinjaman += $rp->tpinjaman;
+		$tjasa += $rp->tjasa;
+		$tsaldo += $rp->tsaldo;
 	?>
 
 	<tr>
 		<td align="center"><?php echo $c; ?>.</td>
-		<td align='right'><?php //echo number_format($pinjaman->tpinjaman,","); ?></td>		
-		<td align='right'><?php //echo number_format($pinjaman->tjasa,","); ?></td>
-		<td align='right'><?php //echo number_format($pinjaman->tsaldo,","); ?></a></td>
-		<td align='center'><a href='<?php //echo base_url()?>index.php/cpinjaman/bayar/<?php //echo $pinjaman->id."/".$pinjaman->id_anggota; ?>'>Bayar</a></td>
+		<td align='right'><?php echo number_format($rp->tpinjaman,","); ?></td>		
+		<td align='right'><?php echo number_format($rp->tjasa,","); ?></td>
+		<td align='right'><?php echo number_format($rp->tsaldo,","); ?></a></td>
+		<td align='center'><a href='<?php echo base_url()?>index.php/cpinjaman/bayar/<?php echo $rp->id."/".$rp->id_anggota; ?>'>Bayar</a></td>
 	</tr>
 	
 	<?php

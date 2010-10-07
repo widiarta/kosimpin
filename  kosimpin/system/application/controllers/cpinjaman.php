@@ -4,7 +4,7 @@ class cpinjaman extends Common {
 
 	function __construct()
 	{
-		parent::Controller();	
+		$this->__Construct();	
 		$this->load->model("pinjaman");
 		$this->load->model("anggota");
 		$this->load->model("user");

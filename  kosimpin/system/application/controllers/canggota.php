@@ -4,7 +4,7 @@ class canggota extends Common {
 
 	function __construct()
 	{
-		parent::Controller();
+		parent::__construct();
 		$this->load->model("anggota");
 		$this->load->model("pinjaman");
         $this->load->model("tabungan");

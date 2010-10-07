@@ -16,9 +16,41 @@ class cpinjaman extends Common {
 	*/
 	function index()
 	{
+		$this->load->helper(array('form', 'url','tanggal'));
+		$this->load->library('form_validation');
+
+		
 		$data = array();
-		$data["data_pinjaman"] = $this->pinjaman->get_saldo_per_anggota();
-		$this->_load_view('pinjaman/home',$data);	
+
+		$this->form_validation->set_rules('tanggal', 'tanggal', 'required');
+		$this->form_validation->set_rules('bulan', 'Bulan', 'required');
+		$this->form_validation->set_rules('tahun', 'Tahun', 'required');
+		$this->form_validation->set_rules('jumlah', 'Jumlah', 'required');
+		$this->form_validation->set_rules('anggota', 'Anggota', 'required');
+		
+		if ($this->form_validation->run() == FALSE)
+		{		
+			$daftar_anggota = $this->anggota->get_array_anggota("nama");
+			$data["daftar_anggota"] = $daftar_anggota;			
+			$data["data_pinjaman"] = $this->pinjaman->get_saldo_per_anggota();
+			$this->_load_view('pinjaman/home',$data);	
+		}
+		else
+		{
+		
+			//tanggal
+			$tanggal = $this->input->post("tahun")."-".$this->input->post("bulan")."-".$this->input->post("tanggal");
+			
+			//sukses
+			$data = array(
+				"id_anggota" => $this->input->post("anggota"),
+				"jumlah_pinjaman" => $this->input->post("jumlah"),
+				"tgl_transaksi" => "$tanggal"
+				);
+				
+			$this->pinjaman->new_pinjaman($data);
+			redirect("cpinjaman/index");		
+		}
 	}
 	
 	/**

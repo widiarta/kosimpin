@@ -33,6 +33,17 @@ class Common extends Controller {
 	}
 	
 	/**
+	* JSON Support
+	*/
+	private function _built_json($data)
+	{
+		$this->output->set_header("Cache-Control: no-cache");
+		$this->output->set_header("Expires: -1");
+		$this->output->set_header("Content-type: application/json");
+		$this->output->set_output($data);
+	}
+	
+	/**
 	* view dispatcher
 	*/
 	function _load_view($view,$data)

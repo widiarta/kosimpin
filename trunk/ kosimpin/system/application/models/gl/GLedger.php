@@ -31,7 +31,7 @@ class Gledger extends Base_model
 		{
 			$total_debit = $this->_count_total_debit($entry_debits);
 			$total_credit = $this->_count_total_credit($entry_kredits);
-			echo $total_credit;
+			
 			if($total_debit==$total_credit && $total_debit>0 && $total_credit>0)
 			{
 				$this->_write_entries($entry_debits);

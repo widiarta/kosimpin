@@ -168,8 +168,8 @@ class Tabungan extends Base_model {
 			$data = (Object)$data;
 		}
 		
-		echo $data->jumlah_in;
-		echo is_String($data->jumlah_in);
+		//echo $data->jumlah_in;
+		///echo is_String($data->jumlah_in);
 		
 		//save gl		
 		$kas = new Jurnal_entry();
@@ -187,7 +187,7 @@ class Tabungan extends Base_model {
 		$tabungan->nomor_dokumen = "";
 		
 		$result = $this->Gledger->write_jurnal($kas,$tabungan);		
-		echo $this->Gledger->error->get_last_error_message();
+		//echo $this->Gledger->error->get_last_error_message();
 	}
 
 

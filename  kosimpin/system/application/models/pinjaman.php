@@ -2,12 +2,25 @@
 
 class Pinjaman extends Base_Model {
 
+	var $kode_account;
+	var $cash_account;
+	
     function __construct()
     {
         parent::__construct();
         $this->init("pinjaman","id");
+		$this->load->model("gl/Gledger");	
     }
-	
+		
+	/**
+	* Setup account number
+	*/
+	function init_glaccount($cash_account,$pinjaman_account)
+	{
+		$this->kode_account = $pinjaman_account;
+		$this->cash_account = $cash_account;
+	}	
+		
     function get_saldo($kode_anggota)
     {
         return 100000;

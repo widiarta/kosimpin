@@ -10,6 +10,10 @@ class ctabungan extends Common {
 		$this->load->model("user");
 		$this->load->model("anggota");
 		
+		//001 cash
+		//005 pinjaman
+		$this->tabungan->init_glaccount("001","005");
+		
     }
 
     function index()

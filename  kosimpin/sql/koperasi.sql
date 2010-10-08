@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Waktu pembuatan: 04. Oktober 2010 jam 10:42
+-- Waktu pembuatan: 08. Oktober 2010 jam 19:22
 -- Versi Server: 5.1.30
 -- Versi PHP: 5.2.8
 
@@ -47,6 +47,54 @@ CREATE TABLE IF NOT EXISTS `anggota` (
 INSERT INTO `anggota` (`id`, `nomor_anggota`, `nama`, `tglmasuk`, `alamat`, `telpon`, `email`, `tgl_input`, `ip_input`) VALUES
 (1, '07030001', 'Ahmad Satiri', '2007-01-31', '-', '-', '-', '2010-09-27 12:36:06', ''),
 (2, '07030002', 'Farid Ma''ruf', '2000-09-05', 'telaga Mas', '-', '-', '2010-09-28 15:42:52', '127.0.0.1');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `daftar_akun`
+--
+
+CREATE TABLE IF NOT EXISTS `daftar_akun` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nomor_account` varchar(50) NOT NULL,
+  `nama_account` varchar(100) NOT NULL,
+  `normal_account` varchar(5) NOT NULL COMMENT 'debit atau kredit',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `nomor_account` (`nomor_account`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data untuk tabel `daftar_akun`
+--
+
+INSERT INTO `daftar_akun` (`id`, `nomor_account`, `nama_account`, `normal_account`) VALUES
+(1, '001', 'Kas', 'd'),
+(2, '005', 'Tabungan', 'k'),
+(3, '002', 'Bank', 'd'),
+(4, '003', 'Piutang (Pinjaman Anggota)', 'd');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `gledger`
+--
+
+CREATE TABLE IF NOT EXISTS `gledger` (
+  `id_jurnal` bigint(20) NOT NULL AUTO_INCREMENT,
+  `nomor_account` varchar(30) NOT NULL,
+  `debit_value` decimal(10,0) NOT NULL,
+  `kredit_value` decimal(10,0) NOT NULL,
+  `tgl_transaksi` date NOT NULL,
+  `tgl_input` datetime NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `ip_input` varchar(50) NOT NULL,
+  PRIMARY KEY (`id_jurnal`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data untuk tabel `gledger`
+--
+
 
 -- --------------------------------------------------------
 
@@ -109,12 +157,19 @@ CREATE TABLE IF NOT EXISTS `pembayaran_pinjaman` (
   `jenis_pembayaran` int(11) NOT NULL DEFAULT '1' COMMENT 'pokok atau jasa',
   PRIMARY KEY (`id`),
   KEY `id_pinjaman` (`id_pinjaman`,`id_user`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data untuk tabel `pembayaran_pinjaman`
 --
 
+INSERT INTO `pembayaran_pinjaman` (`id`, `id_pinjaman`, `id_user`, `tgl_transaksi`, `ip_input`, `tgl_input`, `jumlah_pembayaran`, `keterangan`, `jenis_pembayaran`) VALUES
+(1, 1, 1, '2010-10-06', '127.0.0.1', '2010-10-06 09:33:09', 100000, 'Pembayaran Jasa', 2),
+(2, 1, 0, '2010-10-07', '', '0000-00-00 00:00:00', 100000, 'test', 1),
+(3, 1, 0, '2010-10-08', '', '0000-00-00 00:00:00', 500000, 'test', 1),
+(4, 1, 0, '2010-10-09', '', '0000-00-00 00:00:00', 50000, 'test', 1),
+(5, 1, 0, '2010-10-07', '', '0000-00-00 00:00:00', 35000, 'Dibayar Oleh Dedi', 1),
+(6, 11, 0, '2010-10-07', '', '0000-00-00 00:00:00', 50000, 'Bayar', 1);
 
 -- --------------------------------------------------------
 
@@ -157,14 +212,15 @@ CREATE TABLE IF NOT EXISTS `pinjaman` (
   PRIMARY KEY (`id`),
   KEY `id_anggota` (`id_anggota`),
   KEY `id_user` (`id_user`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT AUTO_INCREMENT=2 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT AUTO_INCREMENT=12 ;
 
 --
 -- Dumping data untuk tabel `pinjaman`
 --
 
 INSERT INTO `pinjaman` (`id`, `id_anggota`, `id_user`, `tgl_transaksi`, `ip_input`, `tgl_input`, `jumlah_pinjaman`, `saldo`, `jumlah_jasa`) VALUES
-(1, 1, 1, '2010-10-01', '127.0.0.1', '2010-10-01 08:59:46', 1000000, 1000000, 100000);
+(1, 1, 1, '2010-10-01', '127.0.0.1', '2010-10-01 08:59:46', 1000000, 315000, 100000),
+(11, 2, 0, '2010-10-07', 'localhost', '2010-10-07 13:17:13', 1000000, 1050000, 100000);
 
 -- --------------------------------------------------------
 
@@ -186,7 +242,7 @@ CREATE TABLE IF NOT EXISTS `tabungan` (
   KEY `id_anggota` (`id_anggota`),
   KEY `id_user` (`id_user`),
   KEY `tgl_transaksi` (`tgl_transaksi`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=44 ;
 
 --
 -- Dumping data untuk tabel `tabungan`
@@ -207,7 +263,35 @@ INSERT INTO `tabungan` (`id`, `id_anggota`, `id_user`, `tgl_transaksi`, `jumlah_
 (12, 2, 1, '2010-09-28', 10000, 0, '127.0.0.1', '2010-09-28 15:43:32', 1),
 (13, 1, 0, '2010-01-02', 13500, 0, 'localhost', '2010-09-28 18:19:43', 1),
 (14, 1, 0, '2010-01-02', 13500, 0, 'localhost', '2010-09-28 18:22:09', 1),
-(15, 2, 0, '2010-01-02', 14500, 0, 'localhost', '2010-09-28 18:22:31', 1);
+(15, 2, 0, '2010-01-02', 14500, 0, 'localhost', '2010-09-28 18:22:31', 1),
+(16, 1, 0, '0000-00-00', 12000, 0, 'localhost', '2010-10-04 11:12:47', 1),
+(17, 2, 0, '0000-00-00', 15000, 0, 'localhost', '2010-10-04 11:13:27', 1),
+(18, 2, 0, '2010-10-04', 1000, 0, 'localhost', '2010-10-04 11:15:24', 1),
+(19, 1, 1, '2010-10-08', 13500, 0, 'localhost', '2010-10-08 18:01:54', 1),
+(20, 1, 1, '2010-10-08', 11000, 0, 'localhost', '2010-10-08 18:37:21', 1),
+(21, 1, 1, '2010-10-08', 13000, 0, 'localhost', '2010-10-08 18:41:26', 1),
+(22, 1, 1, '2010-10-08', 13000, 0, 'localhost', '2010-10-08 18:42:17', 1),
+(23, 1, 1, '2010-10-08', 13000, 0, 'localhost', '2010-10-08 18:42:44', 1),
+(24, 1, 1, '2010-10-08', 13000, 0, 'localhost', '2010-10-08 18:42:50', 1),
+(25, 1, 1, '2010-10-08', 13000, 0, 'localhost', '2010-10-08 18:42:57', 1),
+(26, 1, 1, '2010-10-08', 5666, 0, 'localhost', '2010-10-08 18:43:43', 1),
+(27, 1, 1, '2010-10-08', 5666, 0, 'localhost', '2010-10-08 18:48:17', 1),
+(28, 1, 1, '2010-10-08', 5666, 0, 'localhost', '2010-10-08 18:48:43', 1),
+(29, 1, 1, '2010-10-08', 5666, 0, 'localhost', '2010-10-08 18:49:57', 1),
+(30, 1, 1, '2010-10-08', 5666, 0, 'localhost', '2010-10-08 18:50:37', 1),
+(31, 1, 1, '2010-10-08', 5666, 0, 'localhost', '2010-10-08 18:51:24', 1),
+(32, 1, 1, '2010-10-08', 5666, 0, 'localhost', '2010-10-08 18:51:53', 1),
+(33, 1, 1, '2010-10-08', 5666, 0, 'localhost', '2010-10-08 18:52:13', 1),
+(34, 1, 1, '2010-10-08', 5666, 0, 'localhost', '2010-10-08 18:52:32', 1),
+(35, 1, 1, '2010-10-08', 5666, 0, 'localhost', '2010-10-08 18:52:35', 1),
+(36, 1, 1, '2010-10-08', 5666, 0, 'localhost', '2010-10-08 18:52:36', 1),
+(37, 1, 1, '2010-10-08', 5666, 0, 'localhost', '2010-10-08 18:52:56', 1),
+(38, 1, 1, '2010-10-08', 5666, 0, 'localhost', '2010-10-08 18:53:13', 1),
+(39, 1, 1, '2010-10-08', 5666, 0, 'localhost', '2010-10-08 18:54:02', 1),
+(40, 1, 1, '2010-10-08', 5666, 0, 'localhost', '2010-10-08 18:54:24', 1),
+(41, 1, 1, '2010-10-08', 5666, 0, 'localhost', '2010-10-08 19:18:21', 1),
+(42, 1, 1, '2010-10-08', 14000, 0, 'localhost', '2010-10-08 19:19:25', 1),
+(43, 1, 1, '2010-10-08', 14000, 0, 'localhost', '2010-10-08 19:19:40', 1);
 
 -- --------------------------------------------------------
 

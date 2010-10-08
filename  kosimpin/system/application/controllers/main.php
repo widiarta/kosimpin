@@ -38,11 +38,11 @@ class main extends Common {
 		$exist = $this->user->is_exists($this->input->post("user"),$this->input->post("password"));
 		if($exist)
 		{
-			//$data_user = $this->user->get_user($this->input->post("user"),$this->input->post("password"));
+			$data_user = $this->user->get_user($this->input->post("user"),$this->input->post("password"));
 			$newdata = array(
 							   'username'  => $this->input->post("user"),
 							   'logged_in' => TRUE,
-							 //  'id_user' => $data_user->id,
+							   'id_user' => $data_user->id,
 							   'level' => 0
 						   );
 

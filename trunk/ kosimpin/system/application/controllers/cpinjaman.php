@@ -4,10 +4,14 @@ class cpinjaman extends Common {
 
 	function __construct()
 	{
-		$this->__Construct();	
+		parent::__construct();	
 		$this->load->model("pinjaman");
 		$this->load->model("anggota");
 		$this->load->model("user");
+		
+		//001 cash
+		//003 pinjaman
+		$this->pinjaman->init_glaccount("001","003");
 	}
 
 	/**

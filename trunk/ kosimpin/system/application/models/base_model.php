@@ -27,6 +27,7 @@ class Base_model extends Model {
     {
         $data["tgl_input"] = date("Y-m-d H:i:s");
         $data["ip_input"] = $_SERVER["HTTP_HOST"];
+		$data["id_user"] = $this->session->userdata("id_user");
         $id = $this->db->insert($this->table_name,$data);
 		return $id;
     }

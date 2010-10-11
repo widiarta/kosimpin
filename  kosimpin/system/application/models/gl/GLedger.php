@@ -28,6 +28,7 @@ class Gledger extends Base_model
 	*/
 	function write_jurnal($entry_debits,$entry_kredits,$check_balance=true)
 	{
+		$batch_info= $this->_random_number() . "-" . date("dmY-His");
 		if($entry_debits!=null && $entry_kredits!=null)
 		{
 			$total_debit = $this->_count_total_debit($entry_debits);
@@ -37,8 +38,8 @@ class Gledger extends Base_model
 			{	
 				if($total_debit==$total_credit && $total_debit>0 && $total_credit>0)
 				{
-					$this->_write_entries($entry_debits);
-					$this->_write_entries($entry_kredits);
+					$this->_write_entries($entry_debits,$batch_info);
+					$this->_write_entries($entry_kredits,$batch_info);
 				}
 				//fail not balance
 				$this->error->set_error(501);
@@ -48,8 +49,8 @@ class Gledger extends Base_model
 			{
 				if($total_debit>0 && $total_credit>0)
 				{
-					$this->_write_entries($entry_debits);
-					$this->_write_entries($entry_kredits);
+					$this->_write_entries($entry_debits,$batch_info);
+					$this->_write_entries($entry_kredits,$batch_info);
 				}
 				
 				//zero value
@@ -65,19 +66,26 @@ class Gledger extends Base_model
 	/**
 	* this should be used when balance already checked
 	*/
-	private function _write_entries($entries)
+	private function _write_entries($entries,$batch_info=null)
 	{
+		if($batch_info==null)
+		{
+			$batch_info=date("dmY-His");
+		}
+		
 		if($entries!=null)
 		{
 			if(is_array($entries))
 			{
 				foreach($entries as $entry)
 				{
+					$entry->batch_info = $batch_info;
 					$this->save($entry);
 				}
 			}
 			else
 			{
+				$entries->batch_info = $batch_info;
 				$this->save($entries);
 			}
 		}
@@ -157,6 +165,12 @@ class Gledger extends Base_model
 		
 		$this->error->set_error(503);
 		return FALSE;
+	}
+	
+	function _random_number()
+	{
+		$value = mt_rand(10,99);
+		return $value;
 	}
 	
 }

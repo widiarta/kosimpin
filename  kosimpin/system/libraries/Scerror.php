@@ -6,8 +6,6 @@
  *
  * @package		library
  * @author		Ahmad Satiri
- * @copyright	Copyright (c) 2010, Streetdirectory.com
- * @link		http://www.streetdirectory.com
  * @since		Version 1.0
  * @filesource
  *

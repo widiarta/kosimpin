@@ -25,6 +25,11 @@ class Base_model extends Model {
      */
     function save($data)
     {
+		if(is_object($data))
+		{
+			$data = (array)$data;
+		}
+		
         $data["tgl_input"] = date("Y-m-d H:i:s");
         $data["ip_input"] = $_SERVER["HTTP_HOST"];
 		$data["id_user"] = $this->session->userdata("id_user");

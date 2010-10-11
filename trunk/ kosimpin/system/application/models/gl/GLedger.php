@@ -18,6 +18,7 @@ class Gledger extends Base_model
 		$this->error->add_error_definition(501,"Not Balance or Zero");
 		$this->error->add_error_definition(502,"Failed Saving Entries");
 		$this->error->add_error_definition(503,"Query Error or No Result");
+		$this->error->add_error_definition(504,"Zero Value");
 		
 	}
 	
@@ -25,21 +26,36 @@ class Gledger extends Base_model
 	* $entry_debit is as single object of journal_entry
 	* $entry_kredits is a single or array of journal_entry
 	*/
-	function write_jurnal($entry_debits,$entry_kredits)
+	function write_jurnal($entry_debits,$entry_kredits,$check_balance=true)
 	{
 		if($entry_debits!=null && $entry_kredits!=null)
 		{
 			$total_debit = $this->_count_total_debit($entry_debits);
 			$total_credit = $this->_count_total_credit($entry_kredits);
-						
-			if($total_debit==$total_credit && $total_debit>0 && $total_credit>0)
-			{
-				$this->_write_entries($entry_debits);
-				$this->_write_entries($entry_kredits);
+
+			if($check_balance==TRUE)
+			{	
+				if($total_debit==$total_credit && $total_debit>0 && $total_credit>0)
+				{
+					$this->_write_entries($entry_debits);
+					$this->_write_entries($entry_kredits);
+				}
+				//fail not balance
+				$this->error->set_error(501);
+				return FALSE;
 			}
-			//fail not balance
-			$this->error->set_error(501);
-			return FALSE;
+			else
+			{
+				if($total_debit>0 && $total_credit>0)
+				{
+					$this->_write_entries($entry_debits);
+					$this->_write_entries($entry_kredits);
+				}
+				
+				//zero value
+				$this->error->set_error(504);
+				return FALSE;
+			}
 		}
 		//fail parameter is null
 		$this->error->set_error(500);

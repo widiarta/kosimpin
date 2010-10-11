@@ -191,7 +191,7 @@ class Pinjaman extends Base_Model {
 	*/
 	function save($data)
 	{
-		parent::save($data);
+		//parent::save($data);
 		if(is_array($data))
 		{
 			$data = (Object)$data;
@@ -220,12 +220,14 @@ class Pinjaman extends Base_Model {
 		//kas berkurang
 		$kas = new Jurnal_entry();
 		$kas->nomor_account = $this->cash_account;
-		$kas->debit_value = ;
+		$kas->debit_value = 0;
 		$kas->kredit_value = (float)$data->jumlah_pinjaman;
 		$kas->tgl_transaksi = $data->tgl_transaksi;
 		$kas->nomor_dokumen = "";
 		
-		$result = $this->Gledger->write_jurnal($tpinjaman,$kas);		
+		//tidak melihat nilai balance karena 
+		//ada value jasa
+		$result = $this->Gledger->write_jurnal($tpinjaman,$kas,false);		
 	}	
 	
 }

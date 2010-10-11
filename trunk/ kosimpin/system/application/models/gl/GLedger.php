@@ -5,7 +5,7 @@ class Gledger extends Base_model
 	{
 		parent::__construct();
 		$this->init("gledger","id");
-		$this->load->model("gl/Jurnal_entry");
+		require(APPPATH."models/gl/jurnal_entry.php"); //jurnal entry class
 		$this->load->library("ScError");
 		
 		$this->error = new ScError();
@@ -31,7 +31,7 @@ class Gledger extends Base_model
 		{
 			$total_debit = $this->_count_total_debit($entry_debits);
 			$total_credit = $this->_count_total_credit($entry_kredits);
-			
+						
 			if($total_debit==$total_credit && $total_debit>0 && $total_credit>0)
 			{
 				$this->_write_entries($entry_debits);
@@ -76,15 +76,15 @@ class Gledger extends Base_model
 	{
 		$total_value = 0;
 		if(is_array($jurnal_entries))
-		{
+		{			
 			foreach($jurnal_entries as $entry)
 			{
-				$total_value += (int)$entry->debit_value;
+				$total_value += (float)$entry->debit_value;
 			}
 		}
 		else
-		{
-			$total_value = (int)$jurnal_entries->debit_value;
+		{	
+			$total_value = (float)$jurnal_entries->debit_value;
 		}
 		
 		return $total_value;
@@ -100,12 +100,12 @@ class Gledger extends Base_model
 		{
 			foreach($jurnal_entries as $entry)
 			{
-				$total_value += (int)$entry->kredit_value;
+				$total_value += (float)$entry->kredit_value;
 			}
 		}
 		else
 		{
-			$total_value = (int)$jurnal_entries->kredit_value;
+			$total_value = (float)$jurnal_entries->kredit_value;
 		}
 
 		return $total_value;	

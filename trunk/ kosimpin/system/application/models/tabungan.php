@@ -162,32 +162,27 @@ class Tabungan extends Base_model {
 	function save($data)
 	{
 		parent::save($data);
-		
 		if(is_array($data))
 		{
 			$data = (Object)$data;
 		}
-		
-		//echo $data->jumlah_in;
-		///echo is_String($data->jumlah_in);
-		
+				
 		//save gl		
 		$kas = new Jurnal_entry();
 		$kas->nomor_account = $this->cash_account;
-		$kas->debit_value = 0;
-		$kas->kredit_value = (int)$data->jumlah_in;
+		$kas->debit_value = (float)$data->jumlah_in;
+		$kas->kredit_value = 0;
 		$kas->tgl_transaksi = $data->tgl_transaksi;
 		$kas->nomor_dokumen = "";
 
 		$tabungan = new Jurnal_entry();
 		$tabungan->nomor_account = $this->kode_account;
-		$tabungan->debit_value = (int)$data->jumlah_in;
-		$tabungan->kredit_value = 0;
+		$tabungan->debit_value = 0;
+		$tabungan->kredit_value = (float)$data->jumlah_in;
 		$tabungan->tgl_transaksi = $data->tgl_transaksi;
 		$tabungan->nomor_dokumen = "";
 		
 		$result = $this->Gledger->write_jurnal($kas,$tabungan);		
-		//echo $this->Gledger->error->get_last_error_message();
 	}
 
 

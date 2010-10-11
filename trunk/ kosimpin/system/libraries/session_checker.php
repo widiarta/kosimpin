@@ -4,9 +4,7 @@
  * Just redirect to login when no session created
  *
  * @package		libs
- * @author      Iwan Rahardi,Ahmad Satiri
- * @copyright	Copyright (c) 2010, StreetDirectory.com
- * @link		http://www.streetdirectory.com
+ * @author      Ahmad Satiri
  * @since		Version 1.0
  * @filesource
  */

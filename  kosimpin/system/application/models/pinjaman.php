@@ -4,6 +4,7 @@ class Pinjaman extends Base_Model {
 
 	var $kode_account;
 	var $cash_account;
+	var $jasa_account;
 	
     function __construct()
     {
@@ -15,10 +16,11 @@ class Pinjaman extends Base_Model {
 	/**
 	* Setup account number
 	*/
-	function init_glaccount($cash_account,$pinjaman_account)
+	function init_glaccount($cash_account,$pinjaman_account,$jasa_pinjaman)
 	{
 		$this->kode_account = $pinjaman_account;
 		$this->cash_account = $cash_account;
+		$this->jasa_account = $jasa_pinjaman;
 	}	
 		
     function get_saldo($kode_anggota)
@@ -183,6 +185,48 @@ class Pinjaman extends Base_Model {
         }
         return FALSE;
     }
+	
+	/**
+	* Overload Parent
+	*/
+	function save($data)
+	{
+		parent::save($data);
+		if(is_array($data))
+		{
+			$data = (Object)$data;
+		}
+				
+				
+		//save gl		
+		//piutang bertambah
+		$pinjaman = new Jurnal_entry();
+		$pinjaman->nomor_account = $this->kode_account;
+		$pinjaman->debit_value = (float)$data->jumlah_pinjaman;
+		$pinjaman->kredit_value = 0;
+		$pinjaman->tgl_transaksi = $data->tgl_transaksi;
+		$pinjaman->nomor_dokumen = "";
+
+		
+		$jasa_pinjaman = new Jurnal_entry();
+		$jasa_pinjaman->nomor_account = $this->jasa_account;
+		$jasa_pinjaman->debit_value = $data->jumlah_jasa;
+		$jasa_pinjaman->kredit_value = 0;
+		$jasa_pinjaman->tgl_transaksi = $data->tgl_transaksi;
+		$jasa_pinjaman->nomor_dokumen = "";
+		
+		$tpinjaman = array($pinjaman,$jasa_pinjaman);
+		
+		//kas berkurang
+		$kas = new Jurnal_entry();
+		$kas->nomor_account = $this->cash_account;
+		$kas->debit_value = ;
+		$kas->kredit_value = (float)$data->jumlah_pinjaman;
+		$kas->tgl_transaksi = $data->tgl_transaksi;
+		$kas->nomor_dokumen = "";
+		
+		$result = $this->Gledger->write_jurnal($tpinjaman,$kas);		
+	}	
 	
 }
 

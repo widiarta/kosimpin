@@ -11,7 +11,7 @@ class cpinjaman extends Common {
 		
 		//001 cash
 		//003 pinjaman
-		$this->pinjaman->init_glaccount("001","003");
+		$this->pinjaman->init_glaccount("001","003","004");
 	}
 
 	/**
@@ -41,7 +41,7 @@ class cpinjaman extends Common {
 		}
 		else
 		{
-		
+			//pinjaman baru
 			//tanggal
 			$tanggal = $this->input->post("tahun")."-".$this->input->post("bulan")."-".$this->input->post("tanggal");
 			

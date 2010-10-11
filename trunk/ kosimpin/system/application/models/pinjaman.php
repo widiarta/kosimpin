@@ -104,6 +104,26 @@ class Pinjaman extends Base_Model {
 				{
 					$this->db->where("id",$data->id_pinjaman);
 					$this->db->update("pinjaman",$pembayaran_update);
+					
+					//new kas
+					$kas = new Jurnal_entry();
+					$kas->nomor_account = $this->cash_account;
+					$kas->debit_value = (float)$data->jumlah_pembayaran;
+					$kas->kredit_value = 0;
+					$kas->tgl_transaksi = $data->tgl_transaksi;
+					$kas->nomor_dokumen = "";
+		
+
+					//@TODO account harus terpilih antara pembayaran jasa atau 
+					//pokok
+					$pinjaman = new Jurnal_entry();
+					$pinjaman->nomor_account = $this->kode_account;
+					$pinjaman->debit_value = 0;
+					$pinjaman->kredit_value = (float)$data->jumlah_pembayaran;
+					$pinjaman->tgl_transaksi = $data->tgl_transaksi;
+					$pinjaman->nomor_dokumen = "";	
+
+					$result = $this->Gledger->write_jurnal($kas,$pinjaman);			
 				}
 				
 				return FALSE;
@@ -218,6 +238,7 @@ class Pinjaman extends Base_Model {
 		$tpinjaman = array($pinjaman,$jasa_pinjaman);
 		
 		//kas berkurang
+		
 		$kas = new Jurnal_entry();
 		$kas->nomor_account = $this->cash_account;
 		$kas->debit_value = 0;

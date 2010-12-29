@@ -16,15 +16,25 @@ class testSomeModel extends CIUnit_TestCase{
         the fixtures are now available in the database and so:
         $this->users_fixt;
         $this->products_fixt;
-        
         */
+		
+		$this->CI->load->model('user', 'user');
+		$this->user=$this->CI->user;
     }
 
-    function testProductFetching(){
+    function testProductFetching()
+	{
         /*
         $this->assertEqual($this->products_fixt['first'], $this->pm->product(1));
-        */
+        */	
+		$this->assertEquals($this->user, $this->user);
     }
+	
+	function testAja()
+	{
+		$this->assertEquals(1, $this->user->oke());
+	}
+	
 
 
 

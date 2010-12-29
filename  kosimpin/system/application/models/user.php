@@ -50,6 +50,8 @@ class User extends Base_Model {
             $this->save($data);
     }
 	
+	function oke(){
+	}
 }
 
 /* End of file user.php */

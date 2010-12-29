@@ -34,7 +34,13 @@
 | the active record class
 */
 
-$active_group = "default";
+$env_used = 'default'; //name of your development setting
+if(defined('CIUnit_Version')){
+  $env_used .= '_test';
+}
+$active_group = $env_used;
+$active_record = TRUE;
+
 $active_record = TRUE;
 
 $db['default']['hostname'] = "localhost";
@@ -49,6 +55,19 @@ $db['default']['cache_on'] = FALSE;
 $db['default']['cachedir'] = "";
 $db['default']['char_set'] = "utf8";
 $db['default']['dbcollat'] = "utf8_general_ci";
+
+$db['default_test']['hostname'] = "localhost";
+$db['default_test']['username'] = "root";
+$db['default_test']['password'] = "";
+$db['default_test']['database'] = "koperasi_test";
+$db['default_test']['dbdriver'] = "mysql";
+$db['default_test']['dbprefix'] = "";
+$db['default_test']['pconnect'] = TRUE;
+$db['default_test']['db_debug'] = TRUE;
+$db['default_test']['cache_on'] = FALSE;
+$db['default_test']['cachedir'] = "";
+$db['default_test']['char_set'] = "utf8";
+$db['default_test']['dbcollat'] = "utf8_general_ci";
 
 
 /* End of file database.php */

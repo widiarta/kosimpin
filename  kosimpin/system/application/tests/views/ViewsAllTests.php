@@ -12,8 +12,8 @@ if (!defined('PHPUnit_MAIN_METHOD')) {
     define('PHPUnit_MAIN_METHOD', 'ViewsAllTests::main');
 }
 
-require_once 'PHPUnit/Framework.php';
-require_once 'PHPUnit/TextUI/TestRunner.php';
+//require_once 'PHPUnit/Framework.php';
+//require_once 'PHPUnit/TextUI/TestRunner.php';
 
 require_once dirname(__FILE__).'/../CIUnit.php';
 $files = CIUnit::files('/test.*\.php/', dirname(__FILE__), true);

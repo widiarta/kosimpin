@@ -13,5 +13,12 @@ class testWelcome extends CIUnit_TestCase{
       $out = output();
       $this->assertSame(0, preg_match('/(error|notice)/i', $out));
     }
+	
+	public function testHello()
+	{
+      $this->CI->index();
+      $out = output();
+      $this->assertEquals(0, 1);		
+	}
 
 }

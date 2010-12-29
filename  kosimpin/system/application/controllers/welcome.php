@@ -1,6 +1,6 @@
 <?php
 
-class Welcome extends Common {
+class Welcome extends MY_Controller {
 
 	function __construct()
 	{

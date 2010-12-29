@@ -12,8 +12,8 @@ if (!defined('PHPUnit_MAIN_METHOD'))
     define('PHPUnit_MAIN_METHOD', 'AllTests::main');
 }
 
-require_once 'PHPUnit/Framework.php';
-require_once 'PHPUnit/TextUI/TestRunner.php';
+//require_once 'PHPUnit/Framework.php';
+//require_once 'PHPUnit/TextUI/TestRunner.php';
 
 require_once 'controllers/ControllersAllTests.php';
 require_once 'models/ModelsAllTests.php';
